@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My bhawobasha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFD6DD;--text:#5A1226;--panel:#FFF8DE;--line:#E3BE4A;--sun:#F5B71A;--pom:#8E1B3A;--berry:#D6334F;--paper:#FFFDF4;--ink:#3B1420;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2B0E19;--text:#FFE9A3;--panel:#3C1727;--line:#6B2D43;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#2B0E19;--text:#FFE9A3;--panel:#3C1727;--line:#6B2D43;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:1rem/1.5 "Fredoka",system-ui,sans-serif}
+.wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;justify-items:center;max-width:1100px;margin:0 auto;padding:22px 14px 40px}
+@media(min-width:900px){.edit .wrap{grid-template-columns:minmax(0,1fr) 370px;align-items:start}.edit .panel{order:2;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}}
+.book{position:relative;display:flex;flex-direction:column;width:min(100%,520px);height:min(80vh,700px);min-height:540px;margin-left:12px;background:var(--paper);color:var(--ink);border-radius:6px 18px 18px 6px;box-shadow:0 16px 36px rgba(90,18,38,.3)}
+.book::before{content:"";position:absolute;left:52px;top:0;bottom:0;width:2px;background:#F2A0A8;z-index:1;pointer-events:none}
+.book::after{content:"";position:absolute;left:14px;top:12px;bottom:12px;width:12px;background:radial-gradient(circle at 50% 50%,#EBD9DD 0 4px,transparent 5px) 0 0/100% 32px repeat-y;pointer-events:none}
+.spiral{position:absolute;left:-14px;top:12px;bottom:12px;width:40px;z-index:2;pointer-events:none;background:radial-gradient(ellipse 20px 6px at 50% 50%,#8F94AA 0 85%,transparent 100%) 0 0/100% 32px repeat-y}
+.slide{display:none;position:relative;flex:1;min-height:0;flex-direction:column;overflow-y:auto;padding:32px 18px 8px 64px;background:repeating-linear-gradient(to bottom,transparent 0 31px,#C9DDF2 31px 32px) local;font:500 1.45rem/32px "Caveat","Segoe Script",cursive}
+.slide.on{display:flex;animation:turn .55s ease both}
+@keyframes turn{from{opacity:0;transform:perspective(900px) rotateY(-16deg) translateX(24px)}}
+.slide p{margin:0 0 32px}
+.slide h2{margin:0 0 32px;padding-right:50px;font:600 1.5rem/32px "Fredoka",system-ui,sans-serif;color:var(--pom)}
+.cover{align-items:center;justify-content:center;text-align:center;background:none}
+.cover h1{margin:0;font:600 2.1rem/1.15 "Fredoka",system-ui,sans-serif;color:var(--pom)}
+.cover p{margin:6px 0}
+.tape{position:absolute;top:2px;left:50%;width:84px;height:24px;margin-left:-20px;background:rgba(245,183,26,.65);transform:rotate(-5deg)}
+.sticker{position:absolute;top:4px;right:10px;transform:rotate(12deg);pointer-events:none}
+.big{font:600 1.55rem/32px "Fredoka",system-ui,sans-serif;color:var(--berry)}
+.small{font-size:1.25rem;opacity:.8}
+.sign{text-align:right;color:var(--pom);font-weight:700;white-space:pre-line}
+.note{margin:0 0 14px;padding:10px 14px;border-radius:4px;box-shadow:2px 3px 0 rgba(0,0,0,.12);transform:rotate(var(--r));line-height:26px}
+.picks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 32px}
+.pick{width:84px;height:84px;display:grid;place-items:center;padding:0;border:2px dashed var(--sun);border-radius:18px;background:transparent;cursor:pointer;transition:transform .2s}
+.pick:hover{transform:rotate(-5deg) scale(1.08)}
+.pick.got{border-style:solid;background:#FFF0BF}
+.pt,.reply{font:600 1.35rem/32px "Fredoka",system-ui,sans-serif;color:var(--pom);text-align:center}
+.sealArea{display:grid;place-items:center;min-height:140px;margin:0 0 32px}
+.stamp{display:grid;place-items:center;align-content:center;gap:2px;width:132px;height:132px;border:4px double var(--pom);border-radius:50%;color:var(--pom);text-align:center;font:600 .95rem/1.1 "Fredoka",system-ui,sans-serif;opacity:0;transform:scale(2.4) rotate(-20deg);transition:transform .35s cubic-bezier(.3,1.5,.5,1),opacity .2s}
+.stamp.on{opacity:1;transform:scale(1) rotate(-12deg)}
+.btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin:0 0 32px}
+.btn{min-height:44px;padding:.45em 1.3em;border-radius:999px;font:600 1.05rem "Fredoka",system-ui,sans-serif;cursor:pointer;transition:transform .2s}
+.yes{background:var(--pom);color:#fff;border:2px solid var(--pom)}
+.no{background:transparent;color:var(--pom);border:2px solid var(--pom)}
+.btn:disabled{opacity:.6;cursor:default}
+#conds{display:grid;gap:8px;margin:0 0 24px}
+.cond{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:6px 10px;background:#FFF6D6;border:2px dashed var(--sun);border-radius:12px;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.box{flex:none;width:26px;height:26px;display:grid;place-items:center;border:2px solid var(--pom);border-radius:8px;color:#fff;font:700 1rem system-ui,sans-serif}
+.cond.on{border-style:solid;background:#FFE9A3}
+.cond.on .box{background:var(--pom)}
+.cond.on .box::after{content:"✓"}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:6px 16px 12px 62px}
+.nav button{width:44px;height:44px;border-radius:50%;border:2px solid var(--pom);background:var(--paper);color:var(--pom);font:600 1.5rem/1 "Fredoka",system-ui,sans-serif;cursor:pointer}
+.nav button:disabled{opacity:.3;cursor:default}
+.nav .nudge{animation:nudge .9s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(5px);background:var(--sun)}}
+.dots i{display:inline-block;width:9px;height:9px;margin:0 3px;border-radius:50%;background:#E8C65A}
+.dots i.on{background:var(--pom);transform:scale(1.35)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+.garden{position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden}
+.bloom{position:absolute;transform:translate(-50%,-50%) scale(0);animation:pop .5s cubic-bezier(.3,1.6,.5,1) forwards,out .6s 2.5s forwards}
+@keyframes pop{to{transform:translate(-50%,-50%) scale(1) rotate(var(--r,0deg))}}
+@keyframes out{to{opacity:0}}
+.fall{position:fixed;top:-80px;z-index:50;pointer-events:none;animation:fall var(--d) linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(var(--r))}}
+.bee{position:fixed;left:0;top:0;z-index:60;pointer-events:none;font-size:28px;line-height:1}
+@media (prefers-reduced-motion:reduce){.fall,.bee,.bloom{display:none}.slide.on,.nav .nudge{animation:none}.stamp{transition:none}}
+.panel{order:-1;width:100%;max-width:520px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;font:.95rem/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+.panel h2{margin:0 0 4px;font:600 1.2rem "Fredoka",system-ui,sans-serif}
+.panel p{margin:.2em 0 .6em;opacity:.85}
+.panel label{display:block;margin:.9em 0 .25em;font-weight:600}
+.panel input,.panel textarea{width:100%;padding:.55em .7em;font:1rem system-ui,sans-serif;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tool{min-height:42px;padding:.45em 1em;border-radius:8px;border:1px solid var(--pom);background:transparent;color:var(--text);font:600 .95rem system-ui,sans-serif;cursor:pointer}
+.tool.main{background:var(--pom);color:#fff}
+#msg{min-height:1.3em;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main class="book" id="book">
+  <div class="spiral"></div>
+  <section class="slide cover on">
+    <div class="tape"></div>
+    <div id="art"></div>
+    <h1 id="cT"></h1>
+    <p id="cS"></p>
+    <p class="small" id="since"></p>
+    <p class="small">Turn the page ›</p>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2>How long we’ve been us</h2>
+    <p class="big" id="ymd"></p>
+    <p id="days"></p>
+    <p class="small" id="hms"></p>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2>Cool things about us</h2>
+    <div id="cool"></div>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2 id="lT"></h2>
+    <p id="greet"></p>
+    <p id="opening"></p>
+    <p id="reason"></p>
+    <p id="closing"></p>
+    <p class="sign" id="sign"></p>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2>My promises to you</h2>
+    <p class="small">Tap each gift to open a promise</p>
+    <div class="picks" id="picks"></div>
+    <p class="pt" id="pt" hidden></p>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2>Every promise needs a seal</h2>
+    <p id="sealT"></p>
+    <p class="sign" id="sealBy"></p>
+    <div class="sealArea"><div class="stamp" id="stamp" aria-hidden="true"></div></div>
+    <div class="btns"><button class="btn yes" id="sealBtn">Press the seal</button></div>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2 id="askQ"></h2>
+    <div class="btns" id="choices"><button class="btn yes" id="yes">Yes, I forgive you</button><button class="btn no" id="no">No</button></div>
+    <p class="reply" id="yesMsg" hidden></p>
+  </section>
+  <section class="slide">
+    <div class="tape"></div>
+    <h2 id="condT"></h2>
+    <div id="conds"></div>
+    <p class="reply" id="condEnd" hidden></p>
+  </section>
+  <nav class="nav"><button id="prev" aria-label="Previous page">‹</button><span class="dots" id="dots"></span><button id="next" aria-label="Next page">›</button></nav>
+</main>
+</div>
+<script>
+const EDIT=false;const FINAL={"toName": "Jaan", "fromName": "Shady", "start": "2024-11-20", "coverTitle": "My bhawobasha", "coverSub": "for my little butterfly:(", "cool": "We make time feel so fast together jaan:(\nWe are sweeter than sweet berries and cuter than pomegranates:3\nEven the big moments feel so little with you:(\nWe are the medicine and the pain for each other XD\nAnd we literally tattooed inside our brains jaan:(\nWe always judge people together and thats so fun for me to dooooo:(\nWe are the sunflower for each other:(", "title": "I’m sorry, my sunflower", "greeting": "My dearest", "opening": "I’m so sorry. I know tomar khawap laagshweeee and I hateee that I did:(. Kintu tumi amake keno ebhabe bowo jaan:(. Ama khawap laageee jokhon bowo tumi:(. You’re my sunflower and I never want to be the kaalo megh in your sky:(.", "reason": "I’m sorry for what I said and ami jaani tomar kharap laagse , Im showwyy:(", "closing": "You’re sweeter than a pomegranate jaan and brighter than a whole field of sunflowers:3", "signoff": "Yours always,", "promises": "I will stop whenever you angry so I dont say things I dont mean:(\nI’ll accept my mistakes and take the  full accountability of it:(\nI’ll bring you pomegranates and red berries , and sunflowers after marriage whenever you want jaan:(.", "sealText": "Sealed with a sunflower, a pineapple and a handful of angurrr. Every promises, kept Inshallah:(.", "askQ": "Please jaan will you forgive me please?:(", "yesMsg": "Yaayyyyyy jaannnnnn :D\nI LOVE YOUUUUUU:(", "condT": "Kintuuuu I have a few conditions:(", "conds": "We dont talk when things start to get worse:(\nWe both dont say harsh things to each other:(\nWe gib a longgggg hugggg to each other:(", "condEnd": "Deal? Deal:DDDD🌻"};
+const D={
+ toName:"Mehjabin Sadia",fromName:"Shady",start:"2024-11-20",coverTitle:"Our little notebook",coverSub:"for my sunflower",
+ cool:"You’re my sunflower. You make every day brighter.\nYou’re sweeter than pomegranates and red berries.\nEven the small moments feel big with you.\nI’m so proud to be yours.",
+ title:"I’m sorry, my sunflower",greeting:"My dearest",
+ opening:"I’m so sorry. I know I hurt you, and I hate that I dimmed the brightest person I know. You’re my sunflower, and I never want to be the cloud in your sky.",
+ reason:"I’m sorry for what I said and how it made you feel. You deserve better, and I’ll show you.",
+ closing:"You’re sweeter than a pomegranate and brighter than a whole field of sunflowers.",
+ signoff:"Yours, always,",
+ promises:"I’ll listen first, and talk second.\nI’ll say sorry sooner and mean it every time.\nI’ll bring you pomegranates and red berries whenever words aren’t enough.",
+ sealText:"Sealed with a sunflower, a pomegranate and a handful of red berries. Every promise, kept.",
+ askQ:"Will you forgive me?",yesMsg:"You just made my whole world bloom. Thank you, my love. 🌻",
+ condT:"But… I have a few conditions",conds:"A big, long hug. No rushing.\nA bowl of red berries, shared.\nA pomegranate date. You pick the place.",condEnd:"Deal? Deal. 🌻"
+};
+const F=[["toName","Her name","text"],["fromName","Your name","text"],["start","Day you got together","date"],["coverTitle","Cover title","text"],["coverSub","Cover subtitle","text"],["cool","Cool things about us (one per line)","area"],["title","Letter title","text"],["greeting","Letter greeting (her name follows)","text"],["opening","Letter: opening","area"],["reason","Letter: what you’re sorry for","area"],["closing","Letter: closing","area"],["signoff","Letter sign-off","text"],["promises","Promises (one per line)","area"],["sealText","Promise seal message","area"],["askQ","The big question","text"],["yesMsg","Message after she says yes","area"],["condT","Conditions page title","text"],["conds","Conditions (one per line)","area"],["condEnd","Message when all are ticked","text"]];
+const NOS=["No","Are you sure?","Think of the sunflowers…","Pretty please?","I’ll bring pomegranates!"];
+const KEY="notebook-draft-v1";
+const $=s=>document.querySelector(s);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const sunflower=s=>{let p="";for(let i=0;i<14;i++)p+=`<ellipse cx="50" cy="22" rx="8" ry="20" transform="rotate(${i*360/14} 50 50)" fill="${i%2?"#F9C22E":"#F2A900"}"/>`;return `<svg viewBox="0 0 100 100" width="${s}" height="${s}" aria-hidden="true">${p}<circle cx="50" cy="50" r="16" fill="#5A3516"/><circle cx="50" cy="50" r="9" fill="#3E2410"/></svg>`};
+const pom=s=>`<svg viewBox="0 0 100 100" width="${s}" height="${s}" aria-hidden="true"><path d="M36 24l7 9 7-12 7 12 7-9-2 16H38z" fill="#7C1530"/><circle cx="50" cy="62" r="31" fill="#B5203F"/><ellipse cx="38" cy="50" rx="8" ry="14" fill="#E0576F" opacity=".55" transform="rotate(25 38 50)"/><circle cx="63" cy="74" r="3" fill="#7C1530"/></svg>`;
+const berries=s=>`<svg viewBox="0 0 100 100" width="${s}" height="${s}" aria-hidden="true"><path d="M50 24c-8-12-22-10-26-5 10 0 17 2 26 5zM50 24c8-12 22-10 26-5-10 0-17 2-26 5z" fill="#4F7A2B"/><circle cx="33" cy="56" r="17" fill="#D6334F"/><circle cx="67" cy="56" r="17" fill="#C2253F"/><circle cx="50" cy="74" r="17" fill="#E0445E"/><circle cx="28" cy="50" r="4" fill="#fff" opacity=".45"/><circle cx="62" cy="50" r="4" fill="#fff" opacity=".4"/><circle cx="45" cy="68" r="4" fill="#fff" opacity=".4"/></svg>`;
+const ICONS=[sunflower,pom,berries];
+const reduce=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let C=Object.assign({},D,FINAL||{});
+if(EDIT){try{Object.assign(C,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}}
+const L=k=>C[k].split("\n").map(s=>s.trim()).filter(Boolean);
+const pl=(n,w)=>n+" "+w+(n===1?"":"s");
+const startDate=()=>new Date(C.start+"T00:00:00");
+
+const S=[...document.querySelectorAll(".slide")];
+let cur=0,said=false,n=0,gaveUp=false,last=-1;
+const got=new Set(),ticked=new Set();
+
+function tick(){
+ const s=startDate(),now=new Date();
+ if(isNaN(s)||s>now){$("#ymd").textContent="Very soon…";$("#days").textContent="";$("#hms").textContent="";return}
+ let y=now.getFullYear()-s.getFullYear(),m=now.getMonth()-s.getMonth(),d=now.getDate()-s.getDate();
+ if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
+ if(m<0){y--;m+=12}
+ const ms=now-s;
+ $("#ymd").textContent=[y&&pl(y,"year"),m&&pl(m,"month"),d&&pl(d,"day")].filter(Boolean).join(", ")||"Day one";
+ $("#days").textContent="That’s "+pl(Math.floor(ms/864e5),"day")+" of us.";
+ $("#hms").textContent=pl(Math.floor(ms/36e5)%24,"hour")+", "+pl(Math.floor(ms/6e4)%60,"minute")+", "+pl(Math.floor(ms/1e3)%60,"second")+" and counting";
+}
+function picks(){
+ const box=$("#picks"),P=L("promises"),pt=$("#pt");box.textContent="";
+ P.forEach((s,i)=>{const x=el("button","pick"+(got.has(i)?" got":""));x.innerHTML=ICONS[i%3](54);x.setAttribute("aria-label","Open promise "+(i+1));x.onclick=()=>{got.add(i);last=i;x.classList.add("got");pt.textContent=L("promises")[i];pt.hidden=false};box.appendChild(x)});
+ if(P[last]){pt.textContent=P[last];pt.hidden=false}else pt.hidden=true;
+}
+function conds(){
+ const u=$("#conds"),Q=L("conds");u.textContent="";
+ Q.forEach((s,i)=>{const b=el("button","cond"+(ticked.has(i)?" on":""));b.append(el("span","box"),el("span","",s));b.setAttribute("aria-pressed",ticked.has(i));b.onclick=()=>{ticked.has(i)?ticked.delete(i):ticked.add(i);conds();if(ticked.size>=Q.length)confetti()};u.appendChild(b)});
+ $("#condEnd").hidden=!(Q.length&&ticked.size>=Q.length);
+}
+function fill(){
+ const t=(id,v)=>{$("#"+id).textContent=v};
+ const d=startDate();
+ t("cT",C.coverTitle);t("cS",C.coverSub);t("since",isNaN(d)?"":"since "+d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}));
+ t("lT",C.title);t("greet",C.greeting+" "+C.toName+",");t("opening",C.opening);t("reason",C.reason);t("closing",C.closing);t("sign",C.signoff+"\n"+C.fromName);
+ t("sealT",C.sealText);t("sealBy","— "+C.fromName);t("askQ",C.askQ);t("condT",C.condT);t("condEnd",C.condEnd);
+ const cl=$("#cool");cl.textContent="";
+ L("cool").forEach((s,i)=>{const x=el("div","note",s);x.style.cssText=`--r:${[-2,1.5,-1,2][i%4]}deg;background:${["#FFF0A8","#FFD3DB","#D9F0C3","#FFE2C4"][i%4]}`;cl.appendChild(x)});
+ picks();conds();tick();document.title=C.coverTitle;
+}
+function nav(){
+ S.forEach((s,i)=>s.classList.toggle("on",i===cur));
+ [...$("#dots").children].forEach((d,i)=>d.classList.toggle("on",i===cur));
+ const lock=!EDIT&&cur===6&&!said;
+ $("#prev").disabled=cur===0;
+ $("#next").disabled=cur===S.length-1||lock;
+ $("#next").classList.toggle("nudge",cur===6&&said);
+}
+function go(d){const j=cur+d;if(j<0||j>=S.length)return;if(d>0&&!EDIT&&cur===6&&!said)return;cur=j;nav();S[cur].scrollTop=0}
+function confetti(){for(let i=0;i<30;i++){const d=el("span","fall");d.innerHTML=ICONS[i%3](26+Math.random()*28);d.style.cssText=`left:${Math.random()*96}vw;--d:${3+Math.random()*3}s;--r:${(Math.random()*720-360)|0}deg;animation-delay:${Math.random()*1.2}s`;document.body.appendChild(d);setTimeout(()=>d.remove(),7500)}}
+function dodge(){
+ if(gaveUp)return;n++;const b=$("#no");
+ if(n>=6){gaveUp=true;b.className="btn yes";b.textContent="Okay, yes 🥹";b.style.transform="";b.onclick=()=>$("#yes").click();return}
+ b.textContent=NOS[Math.min(n,NOS.length-1)];const w=Math.min(240,innerWidth*.45);
+ b.style.transform=`translate(${(Math.random()-.5)*w}px,${(Math.random()-.5)*90}px)`;
+ $("#yes").style.transform="scale("+Math.min(1+n*.1,1.5)+")";
+}
+function resetNo(){n=0;gaveUp=false;const b=$("#no");b.className="btn no";b.textContent=NOS[0];b.style.transform="";b.onclick=dodge;$("#yes").style.transform=""}
+function replay(){cur=0;said=false;got.clear();ticked.clear();last=-1;$("#yesMsg").hidden=true;$("#choices").hidden=false;resetNo();$("#stamp").classList.remove("on");const b=$("#sealBtn");b.disabled=false;b.textContent="Press the seal";picks();conds();nav()}
+
+$("#art").innerHTML=pom(64)+sunflower(120)+berries(64);
+$("#stamp").innerHTML=sunflower(56)+"<span>sealed with love</span>";
+S.forEach((s,i)=>{if(i){const k=el("span","sticker");k.innerHTML=ICONS[i%3](46);s.appendChild(k)}});
+S.forEach(()=>$("#dots").appendChild(el("i")));
+$("#prev").onclick=()=>go(-1);$("#next").onclick=()=>go(1);
+$("#sealBtn").onclick=()=>{$("#stamp").classList.add("on");const b=$("#sealBtn");b.disabled=true;b.textContent="Sealed ✓";confetti()};
+$("#yes").onclick=()=>{said=true;const r=$("#yesMsg");r.textContent=C.yesMsg;r.hidden=false;$("#choices").hidden=true;confetti();nav()};
+$("#no").onclick=dodge;$("#no").addEventListener("pointerenter",dodge);
+
+const garden=el("div","garden");document.body.appendChild(garden);
+let k=0,sx=null,bx=innerWidth*.8,by=innerHeight*.7,tx=bx,ty=by;
+const bee=el("span","bee","🐝");if(!reduce())document.body.appendChild(bee);
+addEventListener("pointerdown",e=>{
+ tx=e.clientX+14;ty=e.clientY-20;
+ if(e.target.closest("#panel")){sx=null;return}
+ sx=e.clientX;
+ const b=el("span","bloom");b.innerHTML=ICONS[k++%3](40+Math.random()*30);b.style.left=e.clientX+"px";b.style.top=e.clientY+"px";b.style.setProperty("--r",((Math.random()*60-30)|0)+"deg");garden.appendChild(b);setTimeout(()=>b.remove(),3200);
+});
+addEventListener("pointerup",e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>70)go(dx<0?1:-1)});
+addEventListener("pointermove",e=>{tx=e.clientX+14;ty=e.clientY-20});
+addEventListener("keydown",e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+if(!reduce())(function f(){bx+=(tx-bx)*.1;by+=(ty-by)*.1;bee.style.transform=`translate(${bx}px,${by+Math.sin(Date.now()/180)*5}px)`;requestAnimationFrame(f)})();
+setInterval(tick,1000);
+
+resetNo();fill();nav();
+if(EDIT){
+ document.documentElement.classList.add("edit");$("#panel").hidden=false;
+ const box=$("#fields"),inputs={};
+ const save=()=>{$("#out").value=JSON.stringify(C);try{localStorage.setItem(KEY,JSON.stringify(C))}catch(e){}};
+ F.forEach(([key,label,type])=>{const lab=el("label","",label);lab.htmlFor="f-"+key;const i=el(type==="area"?"textarea":"input");i.id="f-"+key;if(type==="area")i.rows=3;if(type==="date")i.type="date";i.value=C[key];i.oninput=()=>{C[key]=i.value;fill();save()};inputs[key]=i;box.append(lab,i)});
+ const note=m=>{$("#msg").textContent=m};
+ $("#copy").onclick=async()=>{save();const o=$("#out");try{await navigator.clipboard.writeText(o.value);note("Copied! Paste it to Claude.")}catch(e){o.select();try{document.execCommand("copy");note("Copied! Paste it to Claude.")}catch(e2){note("Select the text below and copy it.")}}};
+ $("#replay").onclick=replay;
+ $("#reset").onclick=()=>{C=Object.assign({},D);F.forEach(([key])=>inputs[key].value=C[key]);fill();save();note("Back to the starting text.")};
+ save();
+}
+</script>
+</body>
+</html>
